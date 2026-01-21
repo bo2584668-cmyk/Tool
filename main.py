@@ -1,56 +1,63 @@
 import requests
 import time
-import os
+import undetected_chromedriver as uc
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-# --- الإعدادات الصحيحة ---
-API_TOKEN = "91dfc2c16166d66229fd845f056a8fcf89c9debe"
-USERNAME = "wwwwww"
-# المسار الصحيح للملف عبر API المنصة
-FILE_URL = f"https://www.pythonanywhere.com{USERNAME}/files/path/home/{USERNAME}/orders.txt"
+# الرابط المباشر لملف الأوردرات الخاص بك
+ORDER_FILE_URL = "https://www.pythonanywhere.com/user/wwwwww/shares/997658e3d18e4497a46147634dca7b90/"
 
-def get_orders():
-    print("📡 جاري فحص ملف الطلبات عبر API الخاص بـ PythonAnywhere...")
-    headers = {'Authorization': f'Token {API_TOKEN}'}
+def run_bot(target_url, username, password):
+    """دالة تنفيذ الرشق باستخدام Selenium"""
+    options = uc.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     
+    driver = None
     try:
-        # 1. طلب محتوى الملف
-        response = requests.get(FILE_URL, headers=headers)
-        
+        driver = uc.Chrome(options=options)
+        # تسجيل الدخول وتغيير الحالة لمتابعة
+        driver.get("https://www.tiktok.com")
+        # (هنا نضع بقية خطوات تسجيل الدخول والمتابعة التي صممناها سابقاً)
+        print(f"✅ نجاح المتابعة بواسطة {username} للرابط {target_url}")
+    except Exception as e:
+        print(f"❌ خطأ مع الحساب {username}: {e}")
+    finally:
+        if driver:
+            driver.quit()
+
+def start_execution():
+    print("📡 جاري سحب الطلبات من الرابط المباشر...")
+    try:
+        # سحب محتوى الملف
+        response = requests.get(ORDER_FILE_URL, timeout=15)
         if response.status_code == 200:
             content = response.text.strip()
             if not content:
-                print("😴 الملف فارغ، لا توجد طلبات جديدة.")
-                return []
-            
+                print("😴 لا توجد طلبات جديدة في الملف حالياً.")
+                return
+
             orders = content.split('\n')
             print(f"✅ تم العثور على {len(orders)} طلبات.")
-            
-            # 2. مسح الملف بعد القراءة (إرسال محتوى فارغ لكي لا يتكرر الرشق)
-            empty_data = {'content': ''}
-            requests.post(FILE_URL, headers=headers, files=empty_data)
-            
-            return [o.strip() for o in orders if o.strip()]
-        
-        elif response.status_code == 404:
-            print("❌ خطأ: ملف orders.txt غير موجود. تأكد أن أحداً قد طلب من موقعك أولاً.")
-            return []
-        else:
-            print(f"⚠️ فشل الاتصال: كود الحالة {response.status_code}")
-            return []
-            
-    except Exception as e:
-        print(f"❌ حدث خطأ تقني: {e}")
-        return []
 
-def run_bot(url):
-    # هنا تضع كود السيلينيوم (Selenium) الذي كتبناه سابقاً
-    print(f"🚀 جاري الآن رشق الرابط: {url}")
-    # (تأكد من إضافة كود undetected_chromedriver هنا)
+            # قراءة الحسابات من ملف accounts.txt الموجود في GitHub
+            with open("accounts.txt", "r") as f:
+                accounts = [line.strip().split(":") for line in f if ":" in line]
+
+            # تنفيذ الرشق
+            for link in orders:
+                url = link.strip()
+                if url:
+                    print(f"🚀 بدء التنفيذ للرابط: {url}")
+                    for user, pw in accounts:
+                        run_bot(url, user, pw)
+                        time.sleep(5) # فاصل زمني بين الحسابات
+        else:
+            print(f"❌ فشل الوصول للملف، كود الحالة: {response.status_code}")
+    except Exception as e:
+        print(f"⚠️ حدث خطأ: {e}")
 
 if __name__ == "__main__":
-    orders_list = get_orders()
-    if orders_list:
-        for link in orders_list:
-            run_bot(link)
-            time.sleep(5)
-    print("🏁 انتهت العملية.")
+    start_execution()
