@@ -4,38 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Boost 2026 | bo2584668-cmyk</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
-        :root { --primary: #00f2ea; --secondary: #ff0050; --bg: #0f0f0f; }
-        body { font-family: sans-serif; background: var(--bg); color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: #1a1a1a; padding: 30px; border-radius: 15px; border: 1px solid #333; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h2 { color: var(--primary); margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: none; background: #333; color: white; box-sizing: border-box; outline: none; }
-        button { width: 100%; padding: 12px; border-radius: 8px; border: none; background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        button:hover { transform: scale(1.03); }
-        .footer { margin-top: 15px; font-size: 11px; color: #666; }
+        :root {
+            --primary: #00f2ea;
+            --secondary: #ff0050;
+            --bg: #0b0b0b;
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        h1 { font-size: 22px; color: var(--primary); margin-bottom: 10px; }
+        p { font-size: 14px; color: #aaa; margin-bottom: 25px; }
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            outline: none;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s transform;
+        }
+        button:hover { transform: scale(1.02); }
+        .steps {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>🚀 نظام الرشق الآلي</h2>
-        <p>أدخل رابط الحساب للبدء فوراً</p>
-        <input type="text" id="targetLink" placeholder="https://www.tiktok.com">
-        <button onclick="goToGitHub()">فتح واجهة التنفيذ</button>
-        <div class="footer">سيتم تحويلك لصفحة الأوامر في GitHub لإتمام الرشق</div>
-    </div>
 
-    <script>
-        function goToGitHub() {
-            const link = document.getElementById('targetLink').value;
-            if(!link) return alert("برجاء وضع الرابط أولاً!");
-            
-            const username = "bo2584668-cmyk"; 
-            const repo = "Tool"; 
-            
-            // الرابط الذي يفتح تذكرة جديدة بالرابط المطلوب
-            const githubUrl = `https://github.com{username}/${repo}/issues/new?body=${encodeURIComponent(link)}`;
-            window.open(githubUrl, '_blank');
+<div class="container">
+    <h1>🚀 رشق تيك توك 2026</h1>
+    <p>أدخل رابط الحساب المراد رشقه</p>
+    
+    <input type="text" id="targetLink" placeholder="https://www.tiktok.com">
+    
+    <button onclick="startRshq()">تفعيل الرشق الآلي</button>
+    
+    <div class="steps">
+        💡 <b>ملاحظة:</b> سيفتح لك GitHub، اضغط فقط على <b>Submit New Issue</b> ليبدأ البوت العمل فوراً باستخدام الكوكيز.
+    </div>
+</div>
+
+<script>
+    function startRshq() {
+        const link = document.getElementById('targetLink').value;
+        if (!link || !link.includes('tiktok.com')) {
+            alert("برجاء إدخال رابط تيك توك صحيح!");
+            return;
         }
-    </script>
+
+        // بياناتك في GitHub
+        const username = "bo2584668-cmyk"; 
+        const repo = "Tool"; 
+        
+        // إنشاء الرابط الذي يفتح تذكرة جديدة ويضع فيها الرابط في الوصف (body)
+        const githubIssueUrl = `https://github.com{username}/${repo}/issues/new?title=Order_Request&body=${encodeURIComponent(link)}`;
+        
+        // فتح الرابط في نافذة جديدة
+        window.open(githubIssueUrl, '_blank');
+    }
+</script>
+
 </body>
 </html>
