@@ -3,30 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Boost 2026</title>
+    <title>Social Boost 2026 | bo2584668-cmyk</title>
     <style>
-        body { font-family: sans-serif; background: #0f0f0f; color: white; text-align: center; padding: 50px; }
-        .card { background: #1a1a1a; padding: 30px; border-radius: 15px; border: 1px solid #333; display: inline-block; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #333; color: white; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #00f2ea; color: black; font-weight: bold; cursor: pointer; }
-        .info { margin-top: 20px; font-size: 13px; color: #888; }
+        :root { --primary: #00f2ea; --secondary: #ff0050; --bg: #0f0f0f; }
+        body { font-family: sans-serif; background: var(--bg); color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #1a1a1a; padding: 30px; border-radius: 15px; border: 1px solid #333; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h2 { color: var(--primary); margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: none; background: #333; color: white; box-sizing: border-box; outline: none; }
+        button { width: 100%; padding: 12px; border-radius: 8px; border: none; background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { transform: scale(1.03); }
+        .footer { margin-top: 15px; font-size: 11px; color: #666; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h2>🚀 نظام الرشق الآلي 2026</h2>
-        <p>ضع رابط الحساب واضغط "تشغيل"</p>
+        <h2>🚀 نظام الرشق الآلي</h2>
+        <p>أدخل رابط الحساب للبدء فوراً</p>
         <input type="text" id="targetLink" placeholder="https://www.tiktok.com">
         <button onclick="goToGitHub()">فتح واجهة التنفيذ</button>
-        <div class="info">بما أنك تستخدم GitHub فقط، ستقوم بوضع الرابط في خانة الـ "Issue" وسيعمل البوت فوراً.</div>
+        <div class="footer">سيتم تحويلك لصفحة الأوامر في GitHub لإتمام الرشق</div>
     </div>
 
     <script>
         function goToGitHub() {
             const link = document.getElementById('targetLink').value;
-            if(!link) return alert("ضع الرابط أولاً!");
-            // استبدل USERNAME و REPO ببياناتك الحقيقية
-            const githubUrl = `https://github.com{encodeURIComponent(link)}`;
+            if(!link) return alert("برجاء وضع الرابط أولاً!");
+            
+            const username = "bo2584668-cmyk"; 
+            const repo = "Tool"; 
+            
+            // الرابط الذي يفتح تذكرة جديدة بالرابط المطلوب
+            const githubUrl = `https://github.com{username}/${repo}/issues/new?body=${encodeURIComponent(link)}`;
             window.open(githubUrl, '_blank');
         }
     </script>
